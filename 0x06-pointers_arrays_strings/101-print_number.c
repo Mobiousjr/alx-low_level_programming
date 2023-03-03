@@ -1,37 +1,50 @@
 /**
- * print_number - prints a number
- * @n: Input number
+ * base10 - power in 10 base
+ * @n: an exponent
+ * Return: returns 10 to power exponent
  */
+int base10(int n)
+{
+	int base = 10;
 
+	while (n > 0)
+	{
+		base *= 10;
+		n--;
+	}
+	return (base);
+}
+
+/**
+ * print_number - prints integers enters as parameters using putchar
+ * @n: integer to print
+ * Return: void
+ */
 void print_number(int n)
 {
-	long len, res, i, temp, expo;
+	int power;
 
-	res = n;
-	expo = len =  1;
-/*Check negatives*/
-	if (res < 0)
+	power = base10(8);
+
+	if (n < 0)
 	{
-		res *= -1;
 		_putchar('-');
+		n *= -1;
 	}
 
-/**/
-	temp = res;
-	while (temp >= 10)
-	{
-		len++;
-		temp /= 10;
-	}
+	if (n == 0)
+		_putchar('0');
 
-/*Create Exponent*/
-	for (i = 1; i < len; i++)
-		expo *= 10;
-/*Main */
-	while (expo > 1)
+	else
 	{
-		_putchar((res / expo) % 10 + '0');
-		expo /= 10;
+		while (n / power == 0)
+			power /= 10;
+
+		while (power >= 1)
+		{
+			_putchar((n / power) + '0');
+			n %= power;
+			power /= 10;
+		}
 	}
-	_putchar(res % 10 + '0');
 }
